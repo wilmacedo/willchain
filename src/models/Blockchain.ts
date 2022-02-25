@@ -2,9 +2,11 @@ import Block from "./Block";
 
 class Blockchain {
   private chain: Block[];
+  private difficulty: number;
 
   constructor() {
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = 4;
   }
 
   createGenesisBlock(): Block {
@@ -17,7 +19,7 @@ class Blockchain {
 
   addBlock(block: Block): void {
     block.setPreviousHash(this.getLatestBlock().getHash());
-    block.setHash(block.calculateHash());
+    block.mineBlock(this.difficulty);
 
     this.chain.push(block);
   }

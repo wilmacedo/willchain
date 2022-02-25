@@ -6,6 +6,7 @@ class Block {
   private data: any;
   private previousHash: string;
   private hash: string;
+  private nonce: number;
 
   constructor(
     index: number,
@@ -18,6 +19,7 @@ class Block {
     this.data = data;
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
+    this.nonce = 0;
   }
 
   calculateHash(): string {
@@ -25,7 +27,8 @@ class Block {
       this.index +
         this.previousHash +
         this.timestamp +
-        JSON.stringify(this.data)
+        JSON.stringify(this.data) +
+        this.nonce
     ).toString();
   }
 
@@ -46,7 +49,22 @@ class Block {
   }
 
   setData(data: any): void {
-    this.data = JSON.stringify(data);
+    this.data = data;
+  }
+
+  getData(): string {
+    return this.data;
+  }
+
+  mineBlock(difficulty: number) {
+    while (
+      this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
+    ) {
+      this.nonce++;
+      this.hash = this.calculateHash();
+    }
+
+    console.log(`Block mined: ${this.hash}`);
   }
 }
 
