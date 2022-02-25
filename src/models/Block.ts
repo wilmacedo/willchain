@@ -20,7 +20,7 @@ class Block {
     this.hash = this.calculateHash();
   }
 
-  calculateHash() {
+  calculateHash(): string {
     return SHA256(
       this.index +
         this.previousHash +
@@ -29,16 +29,24 @@ class Block {
     ).toString();
   }
 
-  getHash() {
+  getHash(): string {
     return this.hash;
   }
 
-  setHash(hash: string) {
+  setHash(hash: string): void {
     this.hash = hash;
   }
 
-  setPreviousHash(previousHash: string) {
+  getPreviousHash(): string {
+    return this.previousHash;
+  }
+
+  setPreviousHash(previousHash: string): void {
     this.previousHash = previousHash;
+  }
+
+  setData(data: any): void {
+    this.data = JSON.stringify(data);
   }
 }
 
