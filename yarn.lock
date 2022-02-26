@@ -136,6 +136,13 @@ mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+nedb-async@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/nedb-async/-/nedb-async-0.1.6.tgz#0a2b7937f346fa586dca4b99b8c74196b073a4f4"
+  integrity sha512-q01WccZA4R/bkxWueY4fxafMe68Z1FJpYQBreXBuVd09q6N5hZXqDD0sUDvEaxZQy+xG7f3tQsgtwLPTl0xk2g==
+  dependencies:
+    nedb "^1.8.0"
+
 nedb@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/nedb/-/nedb-1.8.0.tgz#0e3502cd82c004d5355a43c9e55577bd7bd91d88"

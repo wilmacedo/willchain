@@ -1,3 +1,4 @@
+import Storage from "../storage";
 import Block from "./Block";
 import Transaction from "./Transaction";
 
@@ -8,17 +9,38 @@ class Blockchain {
   private miningReward: number;
 
   constructor() {
-    this.chain = [this.createGenesisBlock()];
+    this.chain = [];
     this.difficulty = 2;
     this.pendingTransactions = [];
     this.miningReward = 100;
+
+    this.syncChain();
+  }
+
+  syncChain(): void {
+    Storage.find({}, (_: Error, docs: Block[]) => {
+      if (docs.length === 0) {
+        let blocks: Block[] = [this.createGenesisBlock()];
+
+        // Storage.insert(blocks);
+        // this.chain = blocks;
+
+        return;
+      }
+
+      // this.chain = docs;
+    });
+  }
+
+  isSynced(): boolean {
+    return this.chain.length > 0;
   }
 
   createGenesisBlock(): Block {
-    return new Block(Date.parse("2017-10-01"), [], "0");
+    return new Block(Date.parse("2022-02-25"), [], "0");
   }
 
-  getLatestBlock(): Block {
+  async getLatestBlock(): Promise<Block> {
     return this.chain[this.chain.length - 1];
   }
 
@@ -33,7 +55,7 @@ class Blockchain {
     let block = new Block(Date.now(), this.pendingTransactions);
     block.mineBlock(this.difficulty);
 
-    console.log("Block successfully mined!");
+    Storage.insert(block);
     this.chain.push(block);
 
     this.pendingTransactions = [];
