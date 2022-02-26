@@ -53,6 +53,10 @@ class Block {
     return this.transactions;
   }
 
+  getNonce(): number {
+    return this.nonce;
+  }
+
   mineBlock(difficulty: number) {
     while (
       this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
