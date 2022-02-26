@@ -8,13 +8,13 @@ const sk = EC.keyFromPrivate(
 );
 const address = sk.getPublic("hex");
 
-let willcoin = new Blockchain();
+let instance = new Blockchain();
 
 const tx1 = new Transaction(address, "address2", 10);
 tx1.signTransaction(sk);
-willcoin.addTransaction(tx1);
+instance.addTransaction(tx1);
 
 console.log(`\n Starting the miner...`);
-willcoin.minePendingTransactions(address);
+instance.minePendingTransactions(address);
 
-console.log(`\nBalance of will is ${willcoin.getBalanceOfAddress(address)}`);
+console.log(`\nBalance of will is ${instance.getBalanceOfAddress(address)}`);
